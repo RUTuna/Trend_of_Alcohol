@@ -8,7 +8,6 @@ export class CircularPakingChart {
           }
         this.data = _data;
         this.group = _group;
-        this.simulation = null;
         this.initVis();
     }
 
@@ -48,34 +47,34 @@ export class CircularPakingChart {
     }
 
     // Three function that change the tooltip when user hover / move / leave a cell
-    mouseover = (event, d) => {
+    mouseover = (e, d) => {
         this.Tooltip
             .style("opacity", 1)
     }
-    mousemove = (event, d) => {
+    mousemove = (e, d) => {
         this.Tooltip
             .html('<u>' + d.name + "-" +d.parent+ '</u>' + "<br>" + d.value + "%")
             .style('display', 'block')
-            .style("left", (event.x/2+20) + "px")
-            .style("top", (event.y/2-30) + "px")
+            .style("left", (e.x/2+20) + "px")
+            .style("top", (e.y/2-30) + "px")
     }
-    mouseleave = (event, d) => {
+    mouseleave = (e, d) => {
         this.Tooltip
             .style("opacity", 0)
             .style('display', 'none');
     }
 
-    dragstarted = (event, d) => {
-        if (!event.active) this.simulation.alphaTarget(.03).restart();
+    dragstarted = (e, d) => {
+        if (!e.active) this.simulation.alphaTarget(.03).restart();
         d.fx = d.x;
         d.fy = d.y;
     }
-    dragged = (event, d) => {
-        d.fx = event.x;
-        d.fy = event.y;
+    dragged = (e, d) => {
+        d.fx = e.x;
+        d.fy = e.y;
     }
-    dragended = (event, d) => {
-        if (!event.active) this.simulation.alphaTarget(.03);
+    dragended = (e, d) => {
+        if (!e.active) this.simulation.alphaTarget(.03);
         d.fx = null;
         d.fy = null;
     }

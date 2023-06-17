@@ -18,6 +18,7 @@ export class TreemapChart {
         // append the svg object to the body of the page
         vis.svg = d3.select(vis.config.parentElement)
             .append("svg")
+            .attr("class", "treemapchart")
             .attr('width', vis.width + vis.config.margin.left + vis.config.margin.right)
             .attr('height', vis.height + vis.config.margin.top + vis.config.margin.bottom)
             .append("g")
@@ -52,7 +53,7 @@ export class TreemapChart {
             (vis.root)
 
           // use this information to add rectangles:
-          vis.svg.selectAll("rect")
+        vis.svg.selectAll("rect")
           .data(vis.root.leaves(), (d) => d.data.name) // Use key function to bind data by name
           .join(
               enter => enter.append("rect")
@@ -64,13 +65,17 @@ export class TreemapChart {
                   .style("stroke", "black")
                   .style("fill", d => vis.cScale(d.parent))
                   .style('opacity', '0.5')
-                  .on("mouseover", (event, d) => {
+                  .on("mouseover", (e, d) => {
                       d3.selectAll('.' + d.parent.id).style('opacity', '1');
                   })
-                  .on("mouseleave", (event, d) => {
+                  .on("mouseleave", (e, d) => {
                       d3.selectAll('.' + d.parent.id).style('opacity', '0.5');
                   })
-                  .call(enter => enter.transition().duration(1000) // Set animation duration to 1 second
+                  .attr('x', (d) => { return d.x0; })
+                      .attr('y', (d) => { return d.y0; })
+                      .attr('width', (d) => { return d.x1 - d.x0; }) // Transition to the final width
+                      .attr('height', (d) => { return d.y1 - d.y0; }) // Transition to the final height
+                  .call(enter => enter.transition().duration(0) // Set animation duration to 1 second
                       .attr('x', (d) => { return d.x0; })
                       .attr('y', (d) => { return d.y0; })
                       .attr('width', (d) => { return d.x1 - d.x0; }) // Transition to the final width
@@ -78,14 +83,14 @@ export class TreemapChart {
                   ),
               update => update
                   .attr('class', (d) => { return d.parent.id; })
-                  .call(update => update.transition().duration(1000) // Set animation duration to 1 second
+                  .call(update => update.transition().duration(500) // Set animation duration to 1 second
                       .attr('x', (d) => { return d.x0; })
                       .attr('y', (d) => { return d.y0; })
                       .attr('width', (d) => { return d.x1 - d.x0; }) // Transition to the final width
                       .attr('height', (d) => { return d.y1 - d.y0; }) // Transition to the final height
                   ),
               exit => exit
-                  .call(exit => exit.transition().duration(1000) // Set animation duration to 1 second
+                  .call(exit => exit.transition().duration(500) // Set animation duration to 1 second
                       .attr('x', (d) => { return d.x0; })
                       .attr('y', (d) => { return d.y0; })
                       .attr('width', 0) // Transition to width 0 for removal
@@ -100,28 +105,29 @@ export class TreemapChart {
         .join(
             enter => enter.append("text")
                 .attr('class', (d) => { return d.data.parent; })
-                .attr("x", (d) => { return d.x0 + 5; })
-                .attr("y", (d) => { return d.y0 + 15; })
+                .attr("x", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
+                .attr("y", (d) => { return d.y0 + (d.y1 - d.y0)/2; })
                 .style('width', (d) => { return d.x1 - d.x0; })
                 .style('height', (d) => { return d.y1 - d.y0; })
                 .text((d) => { return d.data.name; })
                 .attr("font-size", "10px")
                 .attr("fill", "white")
+                .attr("text-anchor", "middle")
                 .style('opacity', '0.5')
-                .call(enter => enter.transition().duration(1000) // Set animation duration to 1 second
-                    .attr("x", (d) => { return d.x0 + 5; })
-                    .attr("y", (d) => { return d.y0 + 15; })
+                .call(enter => enter.transition().duration(500) // Set animation duration to 1 second
+                    .attr("x", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
+                    .attr("y", (d) => { return d.y0 + (d.y1 - d.y0)/2; })
                 ),
             update => update
                 .attr('class', (d) => { return d.data.parent; })
-                .call(update => update.transition().duration(1000) // Set animation duration to 1 second
-                    .attr("x", (d) => { return d.x0 + 5; })
-                    .attr("y", (d) => { return d.y0 + 15; })
+                .call(update => update.transition().duration(500) // Set animation duration to 1 second
+                    .attr("x", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
+                    .attr("y", (d) => { return d.y0 + (d.y1 - d.y0)/2; })
                 ),
             exit => exit
-                .call(exit => exit.transition().duration(1000) // Set animation duration to 1 second
-                    .attr("x", (d) => { return d.x0 + 5; })
-                    .attr("y", (d) => { return d.y0 + 15; })
+                .call(exit => exit.transition().duration(500) // Set animation duration to 1 second
+                    .attr("x", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
+                    .attr("y", (d) => { return d.y0 + (d.y1 - d.y0)/2; })
                     .remove()
                 )
         );

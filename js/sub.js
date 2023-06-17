@@ -1,6 +1,8 @@
 import { CircularPakingChart } from "./CircularPackingChart.js";
 import { GroupeBarChart } from "./GroupBarChart.js";
+import { PieChart } from "./PieChart.js";
 import { TreemapChart } from "./TreemapChart.js";
+import { TreemapPirPair } from "./TreemapPiePair.js";
 
 const files = ["home.csv", "outside.csv", "alone.csv", "together.csv"];
 
@@ -8,6 +10,8 @@ let prefer_type = {};
 let cur_generation = "Z"
 let cur_type = "home"
 let preferTree_Z, preferTree_M, preferTree_X, preferCircle_Z;
+let preferTree = [];
+let generation = ["Z", "M", "X"];
 
 Promise.all(files.map(function(filename) {
     return d3.csv("./data/" + filename);
@@ -32,15 +36,22 @@ Promise.all(files.map(function(filename) {
               });
         }
 
-        preferTree_Z = new TreemapChart({ parentElement: '#test', containerWidth:  window.innerWidth*0.6, containerHeight: window.innerHeight/3, margin: {top: 10, right: 30, bottom: 20, left: 10}}, prefer_type[cur_type][""].concat(prefer_type[cur_type]["Z"]));
-        preferTree_M = new TreemapChart({ parentElement: '#test', containerWidth: window.innerWidth*0.6, containerHeight:  window.innerHeight/3, margin: {top: 10, right: 30, bottom: 20, left: 10}}, prefer_type[cur_type][""].concat(prefer_type[cur_type]["M"]));
-        preferTree_X = new TreemapChart({ parentElement: '#test', containerWidth: window.innerWidth*0.6, containerHeight:  window.innerHeight/3, margin: {top: 10, right: 30, bottom: 20, left: 10}}, prefer_type[cur_type][""].concat(prefer_type[cur_type]["X"]));
-        // preferCircle_Z = new CircularPakingChart({ parentElement: '#circular_packing', containerWidth: 300, containerHeight: 300, margin: {top: 10, right: 10, bottom: 10, left: 10}}, prefer_type[cur_type][cur_generation], contry);
+        const processData = {
+            Z: prefer_type[cur_type][""].concat(prefer_type[cur_type]["Z"]),
+            M: prefer_type[cur_type][""].concat(prefer_type[cur_type]["M"]),
+            X: prefer_type[cur_type][""].concat(prefer_type[cur_type]["X"])
+        }
 
-        // const genRadio = Array.from(document.getElementsByClassName('genRadio'));
-        // genRadio.forEach((radio)=>{
-        //     radio.addEventListener('change', handleGenRadio)
-        //     })
+        // const text = new PieChart({ parentElement: '#pie', containerWidth:  window.innerWidth*0.6, containerHeight: window.innerHeight/3, margin: {top: 10, right: 30, bottom: 20, left: 10}}, {a: 9, b: 20, c:30, d:8, e:12, f:3, g:7, h:14}, "name");
+        preferTree[0] = new TreemapPirPair({ parentElement: '#chartZ', containerWidth:  window.innerWidth*0.6, containerHeight: window.innerHeight/3, margin: {top: 10, right: 10, bottom: 20, left: 10}}, processData.Z);
+        preferTree[1] = new TreemapPirPair({ parentElement: '#chartM', containerWidth: window.innerWidth*0.6, containerHeight:  window.innerHeight/3, margin: {top: 10, right: 10, bottom: 20, left: 10}}, processData.M);
+        preferTree[2] = new TreemapPirPair({ parentElement: '#chartX', containerWidth: window.innerWidth*0.6, containerHeight:  window.innerHeight/3, margin: {top: 10, right: 10, bottom: 20, left: 10}}, processData.X);
+
+        preferTree.forEach(tree => {
+            tree.treemap.svg.selectAll("rect")
+                .on("click", handlePie);
+        })
+
         const typeRadio = Array.from(document.getElementsByClassName('typeRadio'));
         typeRadio.forEach((radio)=>{
             radio.addEventListener('change', handleTypeRadio)
@@ -49,15 +60,14 @@ Promise.all(files.map(function(filename) {
         console.error('Error loading the data : ', error);
     });
 
-// function handleGenRadio(e) {
-//     cur_generation = e.target.value;
-//     console.log(prefer_type[cur_type][cur_generation])
-//     preferCircle_Z.data = prefer_type[cur_type][cur_generation];
-//     preferCircle_Z.renderVis();
-
-//     preferTree_Z.data = prefer_type[cur_type][""].concat(prefer_type[cur_type][cur_generation])
-//     preferTree_Z.renderVis()
-// }
+function handlePie(e, d) {
+    preferTree.forEach(tree => {
+        tree.curParent = d.parent.id
+        tree.pie.name = tree.curParent
+        tree.pie.data = tree.pieData[tree.curParent]
+        tree.pie.renderVis()
+    })
+}
 
 function handleTypeRadio(e) {
     cur_type = e.target.value;
@@ -65,10 +75,8 @@ function handleTypeRadio(e) {
     // preferCircle_Z.data = prefer_type[cur_type][cur_generation];
     // preferCircle_Z.renderVis();
 
-    preferTree_Z.data = prefer_type[cur_type][""].concat(prefer_type[cur_type]["Z"])
-    preferTree_Z.renderVis()
-    preferTree_M.data = prefer_type[cur_type][""].concat(prefer_type[cur_type]["M"])
-    preferTree_M.renderVis()
-    preferTree_X.data = prefer_type[cur_type][""].concat(prefer_type[cur_type]["X"])
-    preferTree_X.renderVis()
+    preferTree.forEach((tree, i) => {
+        tree.data = prefer_type[cur_type][""].concat(prefer_type[cur_type][generation[i]])
+        tree.renderVis()
+    })
 }

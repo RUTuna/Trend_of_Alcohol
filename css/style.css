@@ -22,3 +22,34 @@ body {
     margin: 5px 0 0 0;
     padding-left: 20px;
 }
+
+.threepie {
+    display: flex;
+    width: 100vw;
+}
+
+.threepie .treemapchart {
+    flex: 0.6;
+}
+.threepie .piechart {
+    flex: 0.4;
+}
+
+.pieTitle {
+    text-anchor: middle;
+    font-size: 0.8rem;
+    font-weight: bold;
+    fill: #000;
+}
+
+.pieLabel {
+    font-size: 0.6rem;
+}
+
+.legend-item {
+    font-size: 0.8rem;
+}
+
+.pieLegend {
+    font-size: 0.8rem;
+}
