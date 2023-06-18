@@ -2,7 +2,7 @@ export class TreemapChart {
     constructor(_config, _data){
         this.config = {
             parentElement: _config.parentElement,
-            containerWidth: _config.containerWidth || window.innerWidth - 300,
+            containerWidth: _config.containerWidth * 0.6 || window.innerWidth - 300,
             containerHeight: _config.containerHeight || window.innerHeight - 100,
             margin: _config.margin || {top: 5, right: 100, bottom: 50, left: 100}
           }
@@ -19,8 +19,8 @@ export class TreemapChart {
         vis.svg = d3.select(vis.config.parentElement)
             .append("svg")
             .attr("class", "treemapchart")
-            .attr('width', vis.width + vis.config.margin.left + vis.config.margin.right)
-            .attr('height', vis.height + vis.config.margin.top + vis.config.margin.bottom)
+            .attr('width', vis.config.containerWidth )
+            .attr('height', vis.config.containerHeight )
             .append("g")
             .attr("transform", `translate(${vis.config.margin.left},${vis.config.margin.top})`);
         
@@ -110,7 +110,6 @@ export class TreemapChart {
                 .style('width', (d) => { return d.x1 - d.x0; })
                 .style('height', (d) => { return d.y1 - d.y0; })
                 .text((d) => { return d.data.name; })
-                .attr("font-size", "10px")
                 .attr("fill", "white")
                 .attr("text-anchor", "middle")
                 .style('opacity', '0.5')

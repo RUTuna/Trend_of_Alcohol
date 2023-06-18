@@ -2,7 +2,7 @@ export class PieChart {
     constructor(_config, _data, _name){
         this.config = {
             parentElement: _config.parentElement,
-            containerWidth: _config.containerWidth || window.innerWidth - 300,
+            containerWidth: _config.containerWidth * 0.37|| window.innerWidth - 300,
             containerHeight: _config.containerHeight || window.innerHeight - 100,
             margin: _config.margin || {top: 5, right: 100, bottom: 50, left: 100}
           }
@@ -21,10 +21,10 @@ export class PieChart {
         vis.svg = d3.select(vis.config.parentElement)
             .append("svg")
             .attr("class", "piechart")
-            .attr('width', vis.width + vis.config.margin.left + vis.config.margin.right)
-            .attr('height', vis.height + vis.config.margin.top + vis.config.margin.bottom)
+            .attr('width', vis.width)
+            .attr('height', vis.height)
             .append("g")
-            .attr("transform", `translate(${vis.width/2-vis.radius},${vis.height/2})`);
+            .attr("transform", `translate(0,0)`);
             
 
             
@@ -74,7 +74,7 @@ export class PieChart {
               .data(vis.data_ready)
               .join('path')
               .attr('class', (d) => { return d.data.name })
-              .attr("transform", `translate(${-vis.width*0.2}, 0)`)
+              .attr("transform", `translate(${vis.radius}, ${vis.height*0.5})`)
               .attr('d', vis.arc)
               .attr('fill', d => vis.color(d.data.value))
               .attr("stroke", "grey")
@@ -133,7 +133,7 @@ export class PieChart {
         //     });
 
         const legends = vis.svg.append("g")
-            .attr("transform", `translate(0, ${-vis.height*0.5})`)
+            .attr("transform", `translate(${vis.radius*2 + vis.width * 0.2}, 0)`)
             .selectAll(".legends").data(vis.data_ready);
         
         const legend = legends.enter()
@@ -159,7 +159,7 @@ export class PieChart {
         vis.svg
             .append("text")
             .text(vis.name)
-            .attr("transform", `translate(${-vis.width*0.2}, ${vis.height*0.02})`)
+            .attr("transform", `translate(${vis.radius}, ${vis.height*0.52})`)
             .attr("class", "pieTitle")
     }
 }

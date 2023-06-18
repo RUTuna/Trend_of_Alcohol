@@ -1,5 +1,5 @@
 export class GroupeBarChart {
-    constructor(_config, _data, _label){
+    constructor(_config, _data, _legend, _label){
         this.config = {
             parentElement: _config.parentElement,
             containerWidth: _config.containerWidth || window.innerWidth - 300,
@@ -7,7 +7,8 @@ export class GroupeBarChart {
             margin: _config.margin || {top: 5, right: 100, bottom: 50, left: 100}
           }
         this.data = _data;
-        this.label = _label
+        this.legend = _legend;
+        this.label = _label;
         this.initVis();
     }
 
@@ -103,6 +104,21 @@ export class GroupeBarChart {
             .attr("font-size", 12)
             .text("세대");
 
+        vis.svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -vis.config.margin.left)
+            .attr("x", -vis.height / 2)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text(vis.label[1]);
+
+        vis.svg.append("text")
+            .attr("x", vis.width / 2)
+            .attr("y", vis.height + vis.config.margin.bottom)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text(vis.label[0]);
+
         // Add legend
         const legend = vis.svg
             .append("g")
@@ -130,7 +146,7 @@ export class GroupeBarChart {
             .append("text")
             .attr("x", 20)
             .attr("y", 8)
-            .text((d,i) => {return vis.label[i]});
+            .text((d,i) => {return vis.legend[i]});
 
     }
 

@@ -7,7 +7,7 @@ export class TreemapPirPair {
             parentElement: _config.parentElement,
             containerWidth: _config.containerWidth || window.innerWidth - 300,
             containerHeight: _config.containerHeight || window.innerHeight - 100,
-            margin: _config.margin || {top: 5, right: 100, bottom: 50, left: 100}
+            margin: _config.margin || {top: 5, right: 10, bottom: 50, left: 10}
           }
         this.data = _data;
         this.curParent = _parent ? _parent : "맥주";

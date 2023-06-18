@@ -42,10 +42,11 @@ Promise.all(files.map(function(filename) {
             X: prefer_type[cur_type][""].concat(prefer_type[cur_type]["X"])
         }
 
+        console.log(window.innerHeight)
         // const text = new PieChart({ parentElement: '#pie', containerWidth:  window.innerWidth*0.6, containerHeight: window.innerHeight/3, margin: {top: 10, right: 30, bottom: 20, left: 10}}, {a: 9, b: 20, c:30, d:8, e:12, f:3, g:7, h:14}, "name");
-        preferTree[0] = new TreemapPirPair({ parentElement: '#chartZ', containerWidth:  window.innerWidth*0.6, containerHeight: window.innerHeight/3, margin: {top: 10, right: 10, bottom: 20, left: 10}}, processData.Z);
-        preferTree[1] = new TreemapPirPair({ parentElement: '#chartM', containerWidth: window.innerWidth*0.6, containerHeight:  window.innerHeight/3, margin: {top: 10, right: 10, bottom: 20, left: 10}}, processData.M);
-        preferTree[2] = new TreemapPirPair({ parentElement: '#chartX', containerWidth: window.innerWidth*0.6, containerHeight:  window.innerHeight/3, margin: {top: 10, right: 10, bottom: 20, left: 10}}, processData.X);
+        preferTree[0] = new TreemapPirPair({ parentElement: '#chartZ', containerWidth:  window.innerWidth, containerHeight: window.innerHeight*0.3, margin: {top: 10, right: 10, bottom: 20, left: 10}}, processData.Z);
+        preferTree[1] = new TreemapPirPair({ parentElement: '#chartM', containerWidth: window.innerWidth, containerHeight:  window.innerHeight*0.3, margin: {top: 10, right: 10, bottom: 20, left: 10}}, processData.M);
+        preferTree[2] = new TreemapPirPair({ parentElement: '#chartX', containerWidth: window.innerWidth, containerHeight:  window.innerHeight*0.3, margin: {top: 10, right: 10, bottom: 20, left: 10}}, processData.X);
 
         preferTree.forEach(tree => {
             tree.treemap.svg.selectAll("rect")

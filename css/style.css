@@ -1,3 +1,6 @@
+*{
+    font-size: 1vw;
+}
 body {
     background-color: #333c;
 }
@@ -23,6 +26,40 @@ body {
     padding-left: 20px;
 }
 
+h2 {
+    font-size: 1.2rem;
+    margin;
+}
+
+#tendency_bar{
+    display: block;
+    
+}
+.header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.chart {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.link {
+    background-color: #ccc;
+    border-radius: 0.5rem;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    font-style: normal;
+    color: #000;
+}
+
 .threepie {
     display: flex;
     width: 100vw;
@@ -32,12 +69,19 @@ body {
     flex: 0.6;
 }
 .threepie .piechart {
-    flex: 0.4;
+    flex: 0.37;
+}
+.threepie h4 {
+    font-size: 1rem;
+    flex: 0.03;
+}
+.threepie .treemapchart text {
+    font-size: 0.6rem;
 }
 
 .pieTitle {
     text-anchor: middle;
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: bold;
     fill: #000;
 }
@@ -51,5 +95,9 @@ body {
 }
 
 .pieLegend {
+    font-size: 0.8rem;
+}
+
+.tick {
     font-size: 0.8rem;
 }
