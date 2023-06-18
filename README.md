@@ -42,7 +42,7 @@
 - 대학내일20대연구소(2023년 4월) 전국 18개 시도 19-53세 1200명 남녀 중 최근 3개월 내 음주 경헙자 대상 으로한 음주 행태 및 인식, 소비 성향 파악을 위한 기초 자료 수집 [https://www.20slab.org/Archives/38479](https://www.20slab.org/Archives/38479)
 - 본 데이터는 연령/세대 별로 각 항목에 대한 조사 결과를 엑셀 파일로 제공하는 유료 데이터 형태이다. 이는 보호 파일이며 굉장히 다양한 데이터를 포함하고 있기에 별도로 원하는 형식으로 csv 파일을 생성해주어야 했다. 해당 데이터의 저작권 관련 사용 문제는 메일을 통해 사전에 승낙 받았다
 
-<image src="./docs/Untitled.png" width="90%">
+<image align="center" src="./docs/Untitled.png" width="40%">
 
 - 본 데이터에서는 5살/ 10살 단위로 나뉘는 연령 범위와, Z/M/X 세대, Z/후기 M/ 전기 M /X 세대로 나뉘는 세대 범위를 제공하고 있다. 본인은 Z/M/X 간의 음주 성향을 분석하고 싶었기에 이를 사용하였다. 각 세대의 기준을 아래와 같다
     - Z 세대 : 대체로 1990년대 중반 - 2000년대 후반 출생자를 의미. 본 데이터에서는 1996-2004년 출생자를 Z 세대라 칭함
@@ -88,7 +88,7 @@
 
 ### Interaction
 
-<image src="./docs/Untitled%203.png" width="90%">
+<image align="center" src="./docs/Untitled%203.png" width="90%">
 
 - 세대별로 group 이 나눠져 있기에 세대별 성향/상황을 직접적으로 비교하기는 다소 복잡할 수 있다.
 - 그렇기에 mouse hover 에 따라 Highliting을 추가하여 비교할 수 있기 쉽게 하였다
@@ -97,7 +97,7 @@
 
 ### Visual encoding
 
-<image src="./docs/Untitled%204.png" width="90%">
+<image align="center" src="./docs/Untitled%204.png" width="90%">
 
 **Treemap**
 
