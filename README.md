@@ -5,6 +5,10 @@
 # Basic Info
 
 ## Teaser
+<p align="center">
+<image src="./docs/Untitled%2010.png" width="30%">
+<image src="./docs/Untitled%2011.png" width="30%">
+</p>
 
 ## Feature
 
@@ -37,7 +41,6 @@
 - 대학내일20대연구소(2023년 4월) 전국 18개 시도 19-53세 1200명 남녀 중 최근 3개월 내 음주 경헙자 대상 으로한 음주 행태 및 인식, 소비 성향 파악을 위한 기초 자료 수집 [https://www.20slab.org/Archives/38479](https://www.20slab.org/Archives/38479)
 - 본 데이터는 연령/세대 별로 각 항목에 대한 조사 결과를 엑셀 파일로 제공하는 유료 데이터 형태이다. 이는 보호 파일이며 굉장히 다양한 데이터를 포함하고 있기에 별도로 원하는 형식으로 csv 파일을 생성해주어야 했다. 해당 데이터의 저작권 관련 사용 문제는 메일을 통해 사전에 승낙 받았다
 
-![Untitled](./docs/Untitled.png)
 
 - 본 데이터에서는 5살/ 10살 단위로 나뉘는 연령 범위와, Z/M/X 세대, Z/후기 M/ 전기 M /X 세대로 나뉘는 세대 범위를 제공하고 있다. 본인은 Z/M/X 간의 음주 성향을 분석하고 싶었기에 이를 사용하였다. 각 세대의 기준을 아래와 같다
     - Z 세대 : 대체로 1990년대 중반 - 2000년대 후반 출생자를 의미. 본 데이터에서는 1996-2004년 출생자를 Z 세대라 칭함
@@ -72,9 +75,10 @@
 
 ### Visual encoding
 
-![Untitled](./docs/Untitled%201.png)
-
-![Untitled](./docs/Untitled%202.png)
+<p align="center">
+<image src="./docs/Untitled%201.png" width="30%">
+<image src="./docs/Untitled%202.png" width="30%">
+</p>
 
 - Category Attribute  2가지 (세대, 성향/상황), Quantity Attribute 가 1가지를 가지고 있는 Tabular Data 사용하였다
 - 이를 잘 표현할 수 있는 Group Bar Chart 를 사용하였다
@@ -82,7 +86,7 @@
 
 ### Interaction
 
-![Untitled](./docs/Untitled%203.png)
+<image src="./docs/Untitled%203.png" width="30%">
 
 - 세대별로 group 이 나눠져 있기에 세대별 성향/상황을 직접적으로 비교하기는 다소 복잡할 수 있다.
 - 그렇기에 mouse hover 에 따라 Highliting을 추가하여 비교할 수 있기 쉽게 하였다
@@ -91,7 +95,7 @@
 
 ### Visual encoding
 
-![Untitled](./docs/Untitled%204.png)
+<image src="./docs/Untitled%204.png" width="30%">
 
 **Treemap**
 
@@ -112,9 +116,10 @@
 
 **Mouse Hover**
 
-![Untitled](./docs/Untitled%205.png)
-
-![Untitled](./docs/Untitled%206.png)
+<p align="center">
+    <image src="./docs/Untitled%205.png" width="30%">
+    <image src="./docs/Untitled%206.png" width="30%">
+</p>
 
 - 세대별로 Treemap 과 pie chart가  나눠져 있기에 세대별 선호 주종을 직접적으로 비교하기는 다소 복잡할 수 있다.
 - 그렇기에 Treemap 과 pichart 에서 mouse hover 에 따라 Highliting을 추가하여 비교할 수 있기 쉽게 하였다
@@ -126,7 +131,7 @@
 
 ### Filtering
 
-![Untitled](./docs/Untitled%207.png)
+<image src="./docs/Untitled%207.png" width="30%">
 
 - 각 상황에 따라 선호하는 주종이 달라질 수 있다
 - 이를 확인할 수 있게 Radio 버튼을 추가하여 필터링 기능을 사용했다
@@ -138,11 +143,11 @@
 - interaction 에 따라 treemap과 pie chart에 변화 animation을 추가해주었다
 - 이는 treemap 이 달라질 때 동일한 값의 변화를 쉽게 볼 수 있게끔 하기 위함이다
 
-+) **Circular Packing**
-
-![Untitled](./docs/Untitled%208.png)
-
-![Untitled](./docs/Untitled%209.png)
+** +) Circular Packing**
+<p align="center">
+    <image src="./docs/Untitled%208.png" width="30%">
+    <image src="./docs/Untitled%209.png" width="30%">
+</p>
 
 - 초기에는 circular packing 사용을 고려하였고 구현 또한 완료한 상황이었다.
 - Quantity Attribute 를 encoding 하는데 circle 의 radius 를 size mark 를 사용하였다
