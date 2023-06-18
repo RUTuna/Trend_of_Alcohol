@@ -1,6 +1,7 @@
 import { TreemapChart } from "./TreemapChart.js";
 import { PieChart } from "./PieChart.js";
 
+/* Link 된 Treemap 과 Pie Chart */
 export class TreemapPirPair {
     constructor(_config, _data, _parent) {
         this.config = {

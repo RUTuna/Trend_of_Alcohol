@@ -1,3 +1,4 @@
+/* Pie Chart */
 export class PieChart {
     constructor(_config, _data, _name) {
         this.config = {
@@ -17,7 +18,6 @@ export class PieChart {
         vis.height = vis.config.containerHeight - vis.config.margin.top - vis.config.margin.bottom;
         vis.radius = Math.min(vis.width, vis.height) / 2 - vis.config.margin.left - vis.config.margin.right;
 
-        // append the svg object to the body of the page
         vis.svg = d3
             .select(vis.config.parentElement)
             .append("svg")
@@ -27,17 +27,17 @@ export class PieChart {
             .append("g")
             .attr("transform", `translate(${vis.config.margin.left},${vis.config.margin.top})`);
 
-        // Compute the position of each group on the pie:
+        /* Pie */
         vis.pie = d3
             .pie()
-            .sort(null) // Do not sort group by size
+            .sort(null)
             .value((d) => d.value);
 
-        // The arc generator
+        /* Arc */
         vis.arc = d3
             .arc()
-            .innerRadius(vis.radius * 0.5) // This is the size of the donut hole
-            .outerRadius(vis.radius * 0.9);
+            .innerRadius(vis.radius * 0.5) // 내부 반지름, 도넛 형태를 위해
+            .outerRadius(vis.radius * 0.9); // 외부 반지름 
 
         vis.renderVis();
     }
@@ -49,16 +49,14 @@ export class PieChart {
         vis.svg.selectAll(".legend_rect").remove();
         vis.svg.selectAll("text").remove();
 
-        console.log(vis.data.map((d) => d.name));
-        // set the color scale
-        vis.color = d3
+        /* Color Sclae */
+        vis.cScale = d3
             .scaleOrdinal()
             .domain(vis.data.map((d) => d.name))
             .range(d3.schemeTableau10);
 
         vis.data_ready = vis.pie(vis.data.map((d) => ({ name: d.name, value: d.value })));
 
-        // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
         vis.svg
             .selectAll("allSlices")
             .data(vis.data_ready)
@@ -68,7 +66,7 @@ export class PieChart {
             })
             .attr("transform", `translate(${vis.width * 0.5 - vis.radius}, ${vis.height * 0.5})`)
             .attr("d", vis.arc)
-            .attr("fill", (d) => vis.color(d.data.name))
+            .attr("fill", (d) => vis.cScale(d.data.name))
             .attr("stroke", "grey")
             .style("stroke-width", "1px")
             .style("opacity", 0.5)
@@ -78,8 +76,8 @@ export class PieChart {
             .on("mouseleave", (e, d) => {
                 d3.selectAll("." + d.data.name).style("opacity", "0.5");
             })
-            .transition() // Add transition effect
-            .duration(500) // Set the duration of the transition
+            .transition() 
+            .duration(500)
             .attrTween("d", function (d) {
                 const interpolate = d3.interpolate(d.startAngle, d.endAngle);
                 return function (t) {
@@ -88,6 +86,7 @@ export class PieChart {
                 };
             });
 
+        /* Legend */
         vis.legends = vis.svg
             .append("g")
             .attr("transform", `translate(${vis.radius * 2 + vis.width * 0.2}, 0)`)
@@ -102,11 +101,10 @@ export class PieChart {
                 return `translate(0,${(i + 1) * 30})`;
             });
 
-        // list of each country as labels and its styles
         vis.legend
             .append("rect")
             .attr("class", "legend_rect")
-            .attr("fill", (d) => vis.color(d.data.name));
+            .attr("fill", (d) => vis.cScale(d.data.name));
 
         vis.legend
             .append("text")
@@ -115,6 +113,7 @@ export class PieChart {
                 return d.data.name + " " + Number(d.data.value).toFixed(2) + "%";
             });
 
+        /* Title */
         vis.svg
             .append("text")
             .text(vis.name)

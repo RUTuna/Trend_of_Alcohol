@@ -22,6 +22,7 @@ Promise.all(
             together: {},
         };
 
+        // 세대별 데이터 분리
         let i;
         for (i = 0; i < 4; i++) {
             const type = files[i].split(".")[0];
@@ -40,8 +41,6 @@ Promise.all(
             X: prefer_type[cur_type][""].concat(prefer_type[cur_type]["X"]),
         };
 
-        console.log(window.innerHeight);
-        // const text = new PieChart({ parentElement: '#pie', containerWidth:  window.innerWidth*0.6, containerHeight: window.innerHeight/3, margin: {top: 10, right: 30, bottom: 20, left: 10}}, {a: 9, b: 20, c:30, d:8, e:12, f:3, g:7, h:14}, "name");
         preferTree[0] = new TreemapPirPair(
             { parentElement: "#chartZ", containerWidth: window.innerWidth, containerHeight: window.innerHeight * 0.3, margin: { top: 10, right: 10, bottom: 10, left: 0 } },
             processData.Z
@@ -55,6 +54,7 @@ Promise.all(
             processData.X
         );
 
+        // event listener 추가
         preferTree.forEach((tree) => {
             tree.treemap.svg.selectAll("rect").on("click", handlePie);
         });
@@ -68,6 +68,7 @@ Promise.all(
         console.error("Error loading the data : ", error);
     });
 
+/* Treemap 대분류 선택시, 선택에 따라 pie chart data를 변경 */
 function handlePie(e, d) {
     preferTree.forEach((tree) => {
         tree.curParent = d.parent.id;
@@ -77,6 +78,7 @@ function handlePie(e, d) {
     });
 }
 
+/* 선택한 상황에 따른 chart 변경 */
 function handleTypeRadio(e) {
     cur_type = e.target.value;
     console.log(prefer_type[cur_type][cur_generation]);

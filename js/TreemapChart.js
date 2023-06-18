@@ -1,3 +1,4 @@
+/* Treemap */
 export class TreemapChart {
     constructor(_config, _data) {
         this.config = {
@@ -15,7 +16,6 @@ export class TreemapChart {
         vis.width = vis.config.containerWidth - vis.config.margin.left - vis.config.margin.right;
         vis.height = vis.config.containerHeight - vis.config.margin.top - vis.config.margin.bottom;
 
-        // append the svg object to the body of the page
         vis.svg = d3
             .select(vis.config.parentElement)
             .append("svg")
@@ -32,38 +32,33 @@ export class TreemapChart {
         let vis = this;
         vis.root = d3
             .stratify()
-            .id(function (d) {
-                return d.name;
-            }) // Name of the entity (column name is name in csv)
-            .parentId(function (d) {
-                return d.parent;
-            })(
-            // Name of the parent (column name is parent in csv)
-            vis.data
-        );
+            .id((d) => d.name) // entity name
+            .parentId((d) => d.parent) // entity's parent name
+            (vis.data);
 
-        vis.root.sum(function (d) {
-            return +d.value;
-        }); // Compute the numeric value for each entity
+        vis.root.sum((d) => +d.value); // 각 entity value 을 전체 크기로 사용
+
+        /* Color Sclae */
         vis.cScale = d3.scaleOrdinal().domain(vis.root.children).range(d3.schemeTableau10);
 
-        // Then d3.treemap computes the position of each element of the hierarchy
-        // The coordinates are added to the root object above
-        d3.treemap().size([vis.width, vis.height]).padding(2)(vis.root);
+        d3.treemap()
+            .size([vis.width, vis.height])
+            .padding(2)
+            (vis.root);
 
-        // use this information to add rectangles:
+        /* Entity */
         vis.svg
             .selectAll("rect")
-            .data(vis.root.leaves(), (d) => d.data.name) // Use key function to bind data by name
+            .data(vis.root.leaves(), (d) => d.data.name)
             .join(
-                (enter) =>
+                (enter) => // 처음 rendering 시 동작
                     enter
                         .append("rect")
                         .attr("class", (d) => d.parent.id)
                         .attr("x", (d) => d.x0)
                         .attr("y", (d) => d.y0)
-                        .attr("width", (d) => d.x1 - d.x0) // Transition to the final width
-                        .attr("height", (d) => d.y1 - d.y0) // Transition to the final height
+                        .attr("width", (d) => d.x1 - d.x0) 
+                        .attr("height", (d) => d.y1 - d.y0)
                         .style("stroke", "black")
                         .style("fill", (d) => vis.cScale(d.parent))
                         .style("opacity", "0.5")
@@ -73,33 +68,33 @@ export class TreemapChart {
                         .on("mouseleave", (e, d) => {
                             d3.selectAll("." + d.parent.id).style("opacity", "0.5");
                         }),
-                (update) =>
+                (update) => // 값 변경 시 동작
                     update.call((update) =>
                         update
                             .transition()
-                            .duration(500) // Set animation duration to 1 second
+                            .duration(500) // Animation 추가
                             .attr("x", (d) => d.x0)
                             .attr("y", (d) => d.y0)
-                            .attr("width", (d) => d.x1 - d.x0) // Transition to the final width
-                            .attr("height", (d) => d.y1 - d.y0) // Transition to the final height
+                            .attr("width", (d) => d.x1 - d.x0) 
+                            .attr("height", (d) => d.y1 - d.y0)
                     ),
-                (exit) =>
+                (exit) => // 종료 시 width 와 height 를 0으로 한 다음 remove 안보이게 하기
                     exit.call((exit) =>
                         exit
                             .transition()
-                            .duration(500) // Set animation duration to 1 second
+                            .duration(500) // Animation 추가
                             .attr("x", (d) => d.x0)
                             .attr("y", (d) => d.y0)
-                            .attr("width", 0) // Transition to width 0 for removal
-                            .attr("height", 0) // Transition to height 0 for removal
+                            .attr("width", 0) 
+                            .attr("height", 0)
                             .remove()
                     )
             );
 
-        // and to add the text labels
+        /* Entity Label */
         vis.svg
             .selectAll("text")
-            .data(vis.root.leaves(), (d) => d.data.name) // Use key function to bind data by name
+            .data(vis.root.leaves(), (d) => d.data.name)
             .join(
                 (enter) =>
                     enter
