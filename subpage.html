@@ -1,45 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script src="https://d3js.org/d3.v7.js"></script>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="./image/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./image/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./image/favicon-16x16.png">
-    <link rel="manifest" href="./image/site.webmanifest">
-    <link rel="mask-icon" href="./image/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-    <title>술 선호도</title>
-</head>
-<body>
-    <div class="header">
-        <h2>세대별 주종 선호도</h2>
-        <a class="link" href="/">술 선호도 및 주랑 보기</a>
-    </div>
-    <div id="radio-container">
-        <label><input type="radio" class="typeRadio" name="type" value="home" checked>집에서</label>
-        <label><input type="radio" class="typeRadio" name="type" value="outside">밖에서</label>
-        <label><input type="radio" class="typeRadio" name="type" value="alone">혼자 마실 때</label>
-        <label><input type="radio" class="typeRadio" name="type" value="together">같이 마실 때</label>
-    </div>
-    <div id="circular_packing"></div>
-    <div class="chart" id="subpage-chart">
-        <div class="threepie" id="chartZ">
-            <h4>Z 세대</h4>
+    <head>
+        <!-- prettier-ignore -->
+        <meta charset="UTF-8">
+        <script src="https://d3js.org/d3.v7.js"></script>
+        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="apple-touch-icon" sizes="180x180" href="./image/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./image/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="./image/favicon-16x16.png" />
+        <link rel="manifest" href="./image/site.webmanifest" />
+        <link rel="mask-icon" href="./image/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+        <title>술 선호도</title>
+        <script>
+            function redirectToURL() {
+                let currentURL = window.location.href;
+                let lastIndex = currentURL.lastIndexOf("/");
+                window.location.href = currentURL.substring(0, lastIndex);
+            }
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h2>세대별 주종 선호도</h2>
+            <button class="link" onclick="redirectToURL()">술 선호도 및 주랑 보기</button>
         </div>
-        <div class="threepie" id="chartM">
-            <h4>M 세대</h4>
+        <div id="radio-container">
+            <label><input type="radio" class="typeRadio" name="type" value="home" checked />집에서</label>
+            <label><input type="radio" class="typeRadio" name="type" value="outside" />밖에서</label>
+            <label><input type="radio" class="typeRadio" name="type" value="alone" />혼자 마실 때</label>
+            <label><input type="radio" class="typeRadio" name="type" value="together" />같이 마실 때</label>
         </div>
-        <div class="threepie" id="chartX">
-            <h4>X 세대</h4>
+        <div id="circular_packing"></div>
+        <div class="chart" id="subpage-chart">
+            <div class="threepie" id="chartZ">
+                <h4>Z 세대</h4>
+            </div>
+            <div class="threepie" id="chartM">
+                <h4>M 세대</h4>
+            </div>
+            <div class="threepie" id="chartX">
+                <h4>X 세대</h4>
+            </div>
         </div>
-    </div>
 
-
-    <script src="./js/sub.js" type="module"></script>
-</body>
+        <script src="./js/sub.js" type="module"></script>
+    </body>
 </html>
-
-
