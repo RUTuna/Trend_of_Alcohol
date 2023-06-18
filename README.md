@@ -8,7 +8,7 @@
 [여기서 확인](https://rutuna.github.io/Trend_of_Alcohol/)
 <p align="center">
     <image src="./docs/Untitled%2010.png" width="45%">
-    <image src="./docs/Untitled%20.png" width="45%">
+    <image src="./docs/Untitled%2011.png" width="45%">
 </p>
 
 ## Feature
